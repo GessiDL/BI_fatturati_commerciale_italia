@@ -1,0 +1,30 @@
+table Bordi
+	lineageTag: 6c7d2983-abca-43fc-9657-23faf638b603
+
+	column 'Codice Bordo'
+		dataType: string
+		lineageTag: bdfe99bc-d18d-47d6-93ce-a967d5a70a44
+		summarizeBy: none
+		sourceColumn: Codice Bordo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descrizione Bordo'
+		dataType: string
+		lineageTag: 8ea45693-c067-44c5-9b49-96bd1b045780
+		summarizeBy: none
+		sourceColumn: Descrizione Bordo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Bordi = m
+		mode: import
+		source =
+				let
+				    Origine = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WClfSUXIsKsovyc9LSSzJV4rViVaKAIoFF5YmphSBRWIB", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Codice Bordo" = _t, #"Descrizione Bordo" = _t]),
+				    #"Modificato tipo" = Table.TransformColumnTypes(Origine,{{"Codice Bordo", type text}, {"Descrizione Bordo", type text}})
+				in
+				    #"Modificato tipo"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,32 @@
+table 'CLASSE INVENTARIALE'
+	lineageTag: 23e5b2fe-6790-4db9-a6c3-a5fdd3bbf08e
+
+	column 'Codice classe inventariale'
+		dataType: string
+		lineageTag: 6035b57d-71e5-438f-82be-829504c07f55
+		summarizeBy: none
+		sourceColumn: Codice classe inventariale
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Classe inventariale'
+		dataType: string
+		lineageTag: 564b30cd-7a97-4a82-8473-3c5eb5419128
+		summarizeBy: none
+		sourceColumn: Classe inventariale
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'CLASSE INVENTARIALE' = m
+		mode: import
+		source =
+				let
+				    Origine = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("JcsxCoAwDEbhq5TMXsLFSaEodCkdgo3wgxoJwfNbdX0fL2eaInU0sYuBw2U4mEqXKQ4tR9Oq7ho2nHD9YE4NenOsuiNcYsFwy1nh/7iMzRc5sPOtxo6vpvdKbBAq5QE=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Codice classe inventariale" = _t, #"Classe inventariale" = _t]),
+				    #"Modificato tipo" = Table.TransformColumnTypes(Origine,{{"Codice classe inventariale", type text}, {"Classe inventariale", type text}})
+				in
+				    #"Modificato tipo"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigazione
+

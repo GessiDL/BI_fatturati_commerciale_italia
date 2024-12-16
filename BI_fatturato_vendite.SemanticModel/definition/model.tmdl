@@ -1,0 +1,45 @@
+model Model
+	culture: it-IT
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: it-IT
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Anagrafica articoli_art","CLASSE INVENTARIALE","Vendite_fatturate_cdco","Ordini _no fattura_cdor","Agenti","Stato ordine","Stato riga","Bordi","Traduzione Colori","Anagrafica_Clienti_c_f","Descrizione_gruppo_merceologico_gum","Listini vendita","Filtro Gruppo merceologico","Indice_versioni"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.138.1452.0 (24.11)
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Anagrafica articoli_art'
+ref table DateTableTemplate_54338881-2bd7-4811-b96d-856a81890465
+ref table 'CLASSE INVENTARIALE'
+ref table Vendite_fatturate_cdco
+ref table LocalDateTable_b16c257d-bee0-4810-b941-9b7d81e1f859
+ref table LocalDateTable_06d97be1-bd22-4403-83e8-bc6e2f00dcb3
+ref table 'Ordini _no fattura_cdor'
+ref table LocalDateTable_abdc1aef-97ce-49fd-8ab1-eaf8a5f62624
+ref table LocalDateTable_cc31094f-88ff-4fab-9029-200ba511142f
+ref table Agenti
+ref table 'Stato ordine'
+ref table 'Stato riga'
+ref table Bordi
+ref table 'Traduzione Colori'
+ref table Anagrafica_Clienti_c_f
+ref table Descrizione_gruppo_merceologico_gum
+ref table 'Listini vendita'
+ref table LocalDateTable_032380aa-131a-4ec9-9ef7-9189dfabe513
+ref table LocalDateTable_322e1bec-4819-4152-a41b-9fc956cf7bc6
+ref table LocalDateTable_55936673-45a4-4995-b827-479d2825b3ee
+ref table 'Filtro Gruppo merceologico'
+ref table Indice_versioni
+ref table LocalDateTable_c643568e-70d2-4bfc-be3b-9608860d2182
+ref table LocalDateTable_62fade2e-0e42-462f-9300-0255907ec790
+
+ref role Sviluppatore
+
+ref cultureInfo it-IT
+

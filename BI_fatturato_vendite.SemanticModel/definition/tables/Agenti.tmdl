@@ -1,0 +1,33 @@
+table Agenti
+	lineageTag: 4f5dcffc-22aa-4292-bf23-5555c3d9048b
+
+	column 'Codice agente'
+		dataType: string
+		lineageTag: 98cb9a65-c637-455e-be8b-f5d9f1ac9c20
+		summarizeBy: none
+		sourceColumn: Codice agente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nome agente'
+		dataType: string
+		lineageTag: 8d1f968b-4dd7-4ddc-bd67-12ef052438d3
+		summarizeBy: none
+		sourceColumn: Nome agente
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Agenti = m
+		mode: import
+		source =
+				let
+				    Origine = Odbc.Query("dsn=F12 Informix DB", "SELECT * FROM age"),
+				    #"Rinominate colonne" = Table.RenameColumns(Origine,{{"ag_nome_agente", "Nome agente"}, {"ag_cod_agente", "Codice agente"}}),
+				    #"Rimosse altre colonne" = Table.SelectColumns(#"Rinominate colonne",{"Codice agente", "Nome agente"})
+				in
+				    #"Rimosse altre colonne"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigazione
+

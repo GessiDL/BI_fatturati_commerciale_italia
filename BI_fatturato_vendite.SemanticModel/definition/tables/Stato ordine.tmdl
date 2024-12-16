@@ -1,0 +1,35 @@
+table 'Stato ordine'
+	lineageTag: acb043af-ecac-4f86-8cc1-27b12b196cfd
+
+	column 'Codice stato ordine'
+		dataType: string
+		isHidden
+		lineageTag: dac01319-90de-45c7-86d5-f99439cf2430
+		summarizeBy: none
+		sourceColumn: Codice stato ordine
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Stato ordine'
+		dataType: string
+		lineageTag: 19d4d63f-d257-4dc5-a100-b79789e6c2fe
+		summarizeBy: none
+		sourceColumn: Stato ordine
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Stato ordine' = m
+		mode: import
+		source =
+				let
+				    Origine = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("PY1BCoUwDESvUrL2FIqCO1Fx8YuLECMUtBHrd+Hpja24nDdvGGuhgQyaXTYJh8CYWegVDLj8D7yceDY9k3eEsSu0K8TPvK/46p2iTsLGIeVac+1NeWJ45pGVyh6QjF8ydDK563MqpfkiRGIqNyWzVdbyKRTPxhs=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Codice stato ordine" = _t, #"Stato ordine" = _t]),
+				    #"Modificato tipo" = Table.TransformColumnTypes(Origine,{{"Codice stato ordine", type text}, {"Stato ordine", type text}})
+				in
+				    #"Modificato tipo"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigazione
+

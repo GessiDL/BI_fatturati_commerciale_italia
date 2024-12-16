@@ -1,0 +1,365 @@
+table Vendite_fatturate_cdco
+	lineageTag: 83775e20-7cd3-437c-86a3-0ca72e1471d9
+
+	measure Fatturato = SUM(Vendite_fatturate_cdco[Importo netto riga])
+		formatString: "€"\ #,0.0;-"€"\ #,0.0;"€"\ #,0.0
+		lineageTag: c81d9b4a-9954-4b3d-977d-fdbbd84d8298
+
+	measure 'Quantità fatturata #' = SUM(Vendite_fatturate_cdco[Quantità venduta riga])
+		formatString: 0
+		lineageTag: c569a46c-19be-45c4-830e-36bd40574334
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Totale sconti €' = SUM(Vendite_fatturate_cdco[Importo netto sconti])
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: 6ecfd435-fab1-4e94-881e-5648ef86aad1
+
+	measure 'Fatturato %' = DIVIDE([Fatturato],CALCULATE([Fatturato],ALL(Vendite_fatturate_cdco)),0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 82d86cdb-a38c-4766-8f86-4d7c6e950b1b
+
+	measure 'Prezzo medio vendita' = DIVIDE(Vendite_fatturate_cdco[Fatturato],[Quantità fatturata #])
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: 6dcd96f8-3faf-4f5e-add1-410a4eaef612
+
+	measure 'Prezzo medio partenza' = AVERAGE(Vendite_fatturate_cdco[Prezzo vendita])
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: c27a280d-4390-4e8b-b66b-e8fd00f2ee51
+
+	measure 'Scostamento %' = DIVIDE([Media prezzo listino]-[Prezzo medio vendita],[Media prezzo listino])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 243e771f-b11e-44db-8a1a-0a8f23129abe
+
+	measure 'Margine su costo %' = DIVIDE([Prezzo medio vendita]-[Costo medio produzione €],[Prezzo medio vendita])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 876b376b-3a79-4919-b2c7-c44287756771
+
+	column KEY
+		dataType: int64
+		formatString: 0
+		lineageTag: b8da6476-536d-4ad6-952e-e5dd84221e34
+		summarizeBy: none
+		sourceColumn: KEY
+
+		annotation SummarizationSetBy = User
+
+	column 'Data DDT'
+		dataType: dateTime
+		formatString: dd/mm/yy
+		lineageTag: a2c7e2af-cb90-49f1-a253-333b23ccf1cf
+		summarizeBy: none
+		sourceColumn: Data DDT
+
+		variation Variazione
+			isDefault
+			relationship: 8428535d-c69d-4891-a637-0696d6bcb179
+			defaultHierarchy: LocalDateTable_b16c257d-bee0-4810-b941-9b7d81e1f859.'Gerarchia data'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Codice articolo'
+		dataType: string
+		lineageTag: 524bd961-cd17-4dcc-9f74-96ab848c2ba3
+		summarizeBy: none
+		sourceColumn: Codice articolo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descrizione articolo'
+		dataType: string
+		lineageTag: 9e485334-28fb-4138-a119-4a6096c4db27
+		summarizeBy: none
+		sourceColumn: Descrizione articolo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'N° fattura'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3367eece-50b2-416c-8ee6-24ebed4adb8b
+		summarizeBy: none
+		sourceColumn: N° fattura
+
+		annotation SummarizationSetBy = User
+
+	column 'Data fattura'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 32936881-b1e9-46a9-9082-3c3ea19cf528
+		summarizeBy: none
+		sourceColumn: Data fattura
+
+		variation Variazione
+			isDefault
+			relationship: 2ebc2811-f279-4a69-ac93-2bf8c1ce5eb2
+			defaultHierarchy: LocalDateTable_06d97be1-bd22-4403-83e8-bc6e2f00dcb3.'Gerarchia data'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Codice agente'
+		dataType: string
+		lineageTag: b9199944-e835-4c7d-9eb9-20b47ffb834d
+		summarizeBy: none
+		sourceColumn: Codice agente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quantità venduta riga'
+		dataType: double
+		lineageTag: b9e32e20-f156-4c5f-ba06-07d2165d5236
+		summarizeBy: none
+		sourceColumn: Quantità venduta riga
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Prezzo vendita'
+		dataType: decimal
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: 51de07fb-e6cb-4154-918d-c359e5c1767d
+		summarizeBy: none
+		sourceColumn: Prezzo vendita
+
+		annotation SummarizationSetBy = User
+
+	column 'Valore sconto netto 1'
+		dataType: decimal
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: b75a5474-450c-4ac2-ae21-cee5fa4132c0
+		summarizeBy: none
+		sourceColumn: Valore sconto netto 1
+
+		annotation SummarizationSetBy = User
+
+	column 'Importo netto sconti'
+		dataType: decimal
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: b83ac732-41c6-4f67-bf35-fdfafe4d8733
+		summarizeBy: none
+		sourceColumn: Importo netto sconti
+
+		annotation SummarizationSetBy = User
+
+	column 'Importo netto riga'
+		dataType: decimal
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: a62395b1-cbfe-4186-8f4d-06fdfa8a4352
+		summarizeBy: none
+		sourceColumn: Importo netto riga
+
+		annotation SummarizationSetBy = User
+
+	column 'Mese fattura'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c1b9ac0-dcac-43ce-a6c5-0cd2fddaa9d0
+		summarizeBy: none
+		sourceColumn: Mese fattura
+
+		annotation SummarizationSetBy = User
+
+	column 'Anno fattura'
+		dataType: int64
+		formatString: 0
+		lineageTag: 800242e0-146d-4282-8cda-5deabaf97fab
+		summarizeBy: none
+		sourceColumn: Anno fattura
+
+		annotation SummarizationSetBy = User
+
+	column 'Linea prodotto'
+		dataType: string
+		lineageTag: 7bfd1ae7-175f-4bc0-a4a1-3a4b72fd031c
+		summarizeBy: none
+		sourceColumn: Linea prodotto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cliente
+		dataType: string
+		lineageTag: b7212243-4882-4149-9978-6e6531d8620d
+		summarizeBy: none
+		sourceColumn: Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column Zona
+		dataType: string
+		lineageTag: 58b0320b-7080-4f86-ace9-068468e9a0f6
+		summarizeBy: none
+		sourceColumn: Zona
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pagamento - Tempo'
+		dataType: string
+		lineageTag: 0a688e0a-ba3a-4698-ac67-bcde876f56f8
+		summarizeBy: none
+		sourceColumn: Pagamento - Tempo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descrizione raggruppamento'
+		dataType: string
+		lineageTag: d88108aa-af01-4d93-b92b-d29eb077067a
+		summarizeBy: none
+		sourceColumn: Descrizione raggruppamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valore sconto %' = DIVIDE('Vendite_fatturate_cdco'[Valore sconto netto 1],'Vendite_fatturate_cdco'[Prezzo vendita])
+		formatString: 0%;-0%;0%
+		lineageTag: 313368df-c1f2-4c2e-b021-b5107c333944
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column Stato
+		dataType: string
+		lineageTag: b0cd3215-17f2-4ad9-9f9b-497c432d6136
+		summarizeBy: none
+		sourceColumn: Stato
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regione
+		dataType: string
+		lineageTag: ff7c4978-c3e4-419c-b3c8-5e1d22033fc3
+		summarizeBy: none
+		sourceColumn: Regione
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Config. no colore' = LEFT(Vendite_fatturate_cdco[Codice articolo],8)
+		lineageTag: 5d2317db-b447-4c1a-827b-21b96794a93d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Famiglia lettini' = LEFT(Vendite_fatturate_cdco[Codice articolo],2)
+		lineageTag: bd2caa66-5c28-4a98-a0dc-23f4d81fcce5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Testata = MID(Vendite_fatturate_cdco[Codice articolo],3,3)
+		lineageTag: 3de7a1cb-9f79-4a61-813f-7264f0d1d4d3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Regolazione altezza' = MID(Vendite_fatturate_cdco[Codice articolo],6,1)
+		lineageTag: 4c1eef98-a5c0-4ef8-88bd-11ffba7e945a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bordi = MID(Vendite_fatturate_cdco[Codice articolo],8,1)
+		lineageTag: 5f976732-abf3-433d-a6df-ab310a2b92e9
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Colore = RIGHT(Vendite_fatturate_cdco[Codice articolo],1)
+		lineageTag: c5f6076d-9af5-4278-b9cd-a14bb2c00070
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Opzioni = MID(Vendite_fatturate_cdco[Codice articolo],7,1)
+		lineageTag: 16f6ee88-1bc6-423e-a221-5e3701f7eaff
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codice Cliente'
+		dataType: int64
+		formatString: 0
+		lineageTag: bd023431-0386-45cc-9086-30850401f2c3
+		summarizeBy: none
+		sourceColumn: Codice Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Classe inventariale'
+		dataType: string
+		lineageTag: 8661a158-7abd-4121-b49c-649261d6b1bb
+		summarizeBy: none
+		sourceColumn: Classe inventariale
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Costo Standard' = RELATED('Anagrafica articoli_art'[Costo standard])
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: 855fa4f0-9f08-47f8-b1a5-8469205ca94a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	hierarchy 'Codice Lettini'
+		lineageTag: 748b49db-3bd9-43ff-a492-0492a3908614
+
+		level 'Famiglia lettini'
+			lineageTag: 1a1628e9-8e31-4a38-b63c-88fc0abe450b
+			column: 'Famiglia lettini'
+
+		level Testata
+			lineageTag: 8a19154c-cdf6-48e9-90e8-f87ea5ab9221
+			column: Testata
+
+		level 'Regolazione altezza'
+			lineageTag: b6bc53dd-1878-40f6-b988-bbdefdc1d7e5
+			column: 'Regolazione altezza'
+
+		level Opzioni
+			lineageTag: 7d225e71-ee7b-4302-8153-dd20f1e17fd2
+			column: Opzioni
+
+		level Bordi
+			lineageTag: c05e06ca-313e-424f-b0ce-6ae947923329
+			column: Bordi
+
+		level Colore
+			lineageTag: 4eb8e638-d861-4066-831b-e23ba030b7d2
+			column: Colore
+
+	hierarchy Aree
+		lineageTag: 04c6092c-00f9-4a2f-9eb2-6b59ea75efc0
+
+		level Regione
+			lineageTag: a021a7a3-01e3-4e6b-998a-c79072d641ef
+			column: Regione
+
+		level Zona
+			lineageTag: e8df826d-e974-4ee5-a076-f139f1235d83
+			column: Zona
+
+	partition Vendite_fatturate_cdco = m
+		mode: import
+		source =
+				let
+				    Origine = Odbc.Query("dsn=F12 Informix DB", "SELECT * FROM cdco"),
+				    #"Rinominate colonne" = Table.RenameColumns(Origine,{{"cdco_serial", "KEY"}, {"cdco_data_ddt", "Data DDT"}, {"cdco_sigla_art", "Codice articolo"}, {"cdco_descr_art", "Descrizione articolo"}, {"cdco_num_fat", "N° fattura"}, {"cdco_data_fat", "Data fattura"}, {"cdco_agente", "Codice agente"}, {"cdco_prezzo", "Prezzo vendita"}, {"cdco_sc_1", "Valore sconto netto 1"}, {"cdco_netto", "Importo netto sconti"}, {"cdco_importo", "Importo netto riga"}, {"cdco_qta_ven", "Quantità venduta riga"}, {"cdco_mese", "Mese fattura"}, {"cdco_anno", "Anno fattura"}, {"cdco_linea", "Linea prodotto"}, {"cdco_des_cli", "Cliente"}, {"cdco_d_zona", "Stato"}, {"cdco_des_mpa", "Pagamento - Tempo"}, {"cdco_descr_cl_in", "Classe inventariale"}, {"cdco_descr_raggr", "Descrizione raggruppamento"}}),
+				    #"Rimosse altre colonne" = Table.SelectColumns(#"Rinominate colonne",{"KEY", "cdco_cli", "Data DDT", "Codice articolo", "Descrizione articolo", "N° fattura", "Data fattura", "Codice agente", "Quantità venduta riga", "Prezzo vendita", "Valore sconto netto 1", "Importo netto sconti", "Importo netto riga", "Mese fattura", "Anno fattura", "Linea prodotto", "Cliente", "Stato", "Pagamento - Tempo", "cdco_des_paese", "Descrizione raggruppamento", "Classe inventariale"}),
+				    #"Rinominate colonne3" = Table.RenameColumns(#"Rimosse altre colonne",{{"cdco_cli", "Codice Cliente"}}),
+				    #"Modificato tipo" = Table.TransformColumnTypes(#"Rinominate colonne3",{{"Prezzo vendita", Currency.Type}, {"Valore sconto netto 1", Currency.Type}, {"Importo netto sconti", Currency.Type}, {"Importo netto riga", Currency.Type}}),
+				    #"Rinominate colonne1" = Table.RenameColumns(#"Modificato tipo",{{"Stato", "Zona"}, {"cdco_des_paese", "Stato"}}),
+				    #"Testo inserito prima del delimitatore" = Table.AddColumn(#"Rinominate colonne1", "Testo prima del delimitatore", each Text.BeforeDelimiter([Zona], " "), type text),
+				    #"Rinominate colonne2" = Table.RenameColumns(#"Testo inserito prima del delimitatore",{{"Testo prima del delimitatore", "Regione"}})
+				in
+				    #"Rinominate colonne2"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigazione
+

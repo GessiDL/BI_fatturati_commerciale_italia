@@ -1,0 +1,79 @@
+**TABELLA: art = Anagrafica Articolo
+a_cl_inv =Codice classe inventariale
+a_linea = Linea prodotto
+a_raggr_art = Raggruppamento articoli
+a_sigla_art = Codice articolo
+a_prz_pag_stand = Costo standard
+a_descr_art = Descrizione articolo
+
+
+**TABELLA: cdco = Vendite-fatturare
+cdco_serial = KEY
+cdco_data_ddt = Data DDT
+cdco_sigla_art = Codice articolo
+cdco_descr_art = Descrizione articolo
+cdco_num_fat = N° fattura
+cdco_data_fat = Data fattura
+cdco_agente = Codice agente
+cdco_prezzo = Prezzo vendita
+cdco_sc_1 = Valore sconto netto 1
+cdco_netto = Importo netto sconti
+cdco_importo = Importo netto riga
+cdco_qta_ven = Quantità venduta riga
+cdco_qta_oma = Quantità omaggio riga
+cdco_mese = Mese fattura
+cdco_anno = Anno fattura
+cdco_linea = Linea prodotto
+cdco_des_cli = Cliente
+cdco_d_zona = Stato
+cdco_des_mpa = Pagamento - Tempo
+cdco_descr_cl_in = Classe inventariale
+cdco_descr_raggr = Descrizione raggruppamento
+
+
+**TABELLA: cdor = Ordini - no fattura (cdor)
+cdor_serial = KEY
+cdor_cli = Codice cliente
+cdor_anno_ord = Anno ordine
+cdor_num_ord = Numero ordine
+cdor_stato_ord = Stato ordine
+cdor_data_ins = Data inserimento ordine
+cdor_data_cons = Data consegna ordine
+cdor_stato_riga = Stato riga
+cdor_sigla_art = Codice articolo
+cdor_descr_art = Descrizione articolo
+cdor_agente = Codice agente
+cdor_qta_ven = Quantità ordine riga
+cdor_qta_oma = Quantità omaggio riga
+cdor_prezzo = Prezzo vendita
+cdor_sc_1 = Valore sconto netto 1
+cdor_netto = Importo netto sconti
+cdor_importo = Importo netto riga
+cdor_mese = Mese ordine
+cdor_des_mpa = Metodo pagamento
+cdor_des_paese = Stato
+cdor_descr_raggr = Descrizione raggruppamento
+cdor_descr_cl_in = Classe inventariale
+
+
+**TABELLA: age = Agenti
+ag_nome_agente = Nome agente
+ag_cod_agente = Codice agente
+
+
+**TABELLA: liav = Listini vendita
+lia_sigla_lis = codice_listino
+lia_prezzo = Prezzo Vendita
+lia_data_ent_vig = Data Entrata Vigore
+lia_sigla_art = Codice Articolo
+lia_sconto = Sconto
+lia_data_fin_vig = Data Fine Vigore
+lia_operatore = Operatore inserimento
+lia_data_variaz = Data Variazione
+
+
+lia_sigla_lis --> 1= Italia cliente finale 	2= Italia rivenditori	E1= Estero cliente finale	E2= Estero rivenditori
+
+
+
+

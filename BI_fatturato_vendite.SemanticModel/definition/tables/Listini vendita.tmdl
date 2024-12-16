@@ -1,0 +1,111 @@
+table 'Listini vendita'
+	lineageTag: 226bdb24-583c-46d6-9d58-b46e4f93832e
+
+	measure 'Media prezzo listino' = AVERAGE('Listini vendita'[Prezzo vendita])
+		lineageTag: fb99b0bf-6de3-46ab-aa21-ae63e9b73704
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Prezzo vendita'
+		dataType: double
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: b16458ad-48a6-487b-82b3-09354bef6a02
+		summarizeBy: none
+		sourceColumn: Prezzo vendita
+
+		annotation SummarizationSetBy = User
+
+	column 'Data Entrata Vigore'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 49611f50-aa72-40f5-91d4-bbae53d78111
+		summarizeBy: none
+		sourceColumn: Data Entrata Vigore
+
+		variation Variazione
+			isDefault
+			relationship: c9774fc2-0d36-41e8-8068-942cd06bdbe4
+			defaultHierarchy: LocalDateTable_032380aa-131a-4ec9-9ef7-9189dfabe513.'Gerarchia data'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Codice Articolo'
+		dataType: string
+		lineageTag: 5d45420a-85ce-40a4-af90-1a35f958fc5b
+		summarizeBy: none
+		sourceColumn: Codice Articolo
+
+		annotation SummarizationSetBy = Automatic
+
+	column codice_listino
+		dataType: string
+		lineageTag: 4698f83b-98be-46ac-80de-705cd1162d97
+		summarizeBy: none
+		sourceColumn: codice_listino
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sconto
+		dataType: string
+		lineageTag: b9fab23c-41df-4577-bf9f-73bf413dae60
+		summarizeBy: none
+		sourceColumn: Sconto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data Fine Vigore'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2679a730-7e3b-413d-99db-108e66034585
+		summarizeBy: none
+		sourceColumn: Data Fine Vigore
+
+		variation Variazione
+			isDefault
+			relationship: 69f87d5b-1687-4caa-8af1-a3e1b6d4e6cd
+			defaultHierarchy: LocalDateTable_322e1bec-4819-4152-a41b-9fc956cf7bc6.'Gerarchia data'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Operatore inserimento'
+		dataType: string
+		lineageTag: 892bbf0c-45b2-437f-9d6f-b32b09e5ce47
+		summarizeBy: none
+		sourceColumn: Operatore inserimento
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data Variazione'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0c1293d7-4418-44d3-8707-da5e99665484
+		summarizeBy: none
+		sourceColumn: Data Variazione
+
+		variation Variazione
+			isDefault
+			relationship: 9e319327-9122-455f-81cb-f5a37ba4b091
+			defaultHierarchy: LocalDateTable_55936673-45a4-4995-b827-479d2825b3ee.'Gerarchia data'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'Listini vendita' = m
+		mode: import
+		source =
+				let
+				    Origine = Odbc.Query("dsn=F12 Informix DB", "SELECT * FROM LIAV"),
+				    #"Filtro data dopo 01/01/2014" = Table.SelectRows(Origine, each [lia_data_ent_vig] > #date(2014, 1, 1)),
+				    #"Rinominate colonne" = Table.RenameColumns(#"Filtro data dopo 01/01/2014",{{"lia_prezzo", "Prezzo vendita"}, {"lia_sigla_lis", "codice_listino"}, {"lia_data_ent_vig", "Data Entrata Vigore"}, {"lia_sigla_art", "Codice Articolo"}, {"lia_sconto", "Sconto"}, {"lia_data_fin_vig", "Data Fine Vigore"}, {"lia_operatore", "Operatore inserimento"}, {"lia_data_variaz", "Data Variazione"}})
+				in
+				    #"Rinominate colonne"
+
+	annotation PBI_NavigationStepName = Navigazione
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,30 @@
+table 'Traduzione Colori'
+	lineageTag: e7d8697e-9540-48a3-8e4c-2dfdbf88df31
+
+	column 'Codice Colore'
+		dataType: string
+		lineageTag: ca84c9f9-aa98-4f02-9304-013f5ed2e446
+		summarizeBy: none
+		sourceColumn: Codice Colore
+
+		annotation SummarizationSetBy = Automatic
+
+	column Colore
+		dataType: string
+		lineageTag: 83edff1f-7f2f-482c-af33-87a208a0731d
+		summarizeBy: none
+		sourceColumn: Colore
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Traduzione Colori' = m
+		mode: import
+		source =
+				let
+				    Origine = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("TY9Lq8IwEIX/SslaBB/4WGqxXsGKj4sLSxdDDN6BmODUiPjrnWl6q8vvy8nJSVGomeqoOYLTXpWdQm0YZw9PGHEipwYvpqYx05Lwgj5JjTMUbS5X3J1A4z2aLZuNoVhxYMiByDuTHHRo7I8UezobCM9aTFlkQVcINWaMe19VMb1kSj2BtZFP8iTxaOTW2gxlGraBX8aj4fpkjdf/TK+Vnx2j1qV/CI1cSL2+BbgCoYuDduzWaG2kvSRer26SrfgTYLEZ2pdv2fBdNmhULl2syjc=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Codice Colore" = _t, Colore = _t]),
+				    #"Modificato tipo" = Table.TransformColumnTypes(Origine,{{"Codice Colore", type text}, {"Colore", type text}})
+				in
+				    #"Modificato tipo"
+
+	annotation PBI_ResultType = Table
+

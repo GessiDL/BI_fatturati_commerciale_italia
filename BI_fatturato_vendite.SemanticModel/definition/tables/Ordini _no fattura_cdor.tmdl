@@ -1,0 +1,368 @@
+table 'Ordini _no fattura_cdor'
+	lineageTag: 2db14316-950a-4d2c-be9e-ed1bfdbe168b
+
+	measure 'Quantità righe ordini #' = DISTINCTCOUNT('Ordini _no fattura_cdor'[KEY])
+		formatString: 0
+		lineageTag: bff12e16-eba0-4a38-a782-543604bf6939
+
+	measure 'Quantità articolo #' = SUM('Ordini _no fattura_cdor'[Quantità ordine riga])
+		formatString: 0
+		lineageTag: 1c7a366b-6e31-4d58-b8a8-0c5d92a0bc2b
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Valore ordinato €' = SUM('Ordini _no fattura_cdor'[Importo netto riga])
+		formatString: "€"\ #,0;-"€"\ #,0;"€"\ #,0
+		lineageTag: a4290d9d-c415-4197-b8fe-843ca853f61a
+
+	measure 'Sommatoria sconti su riga €' = SUM('Ordini _no fattura_cdor'[Valore sconto netto 1])
+		lineageTag: 00bf227b-f46f-419a-97fd-22addf935405
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Prezzo vendita medio €' = AVERAGE('Ordini _no fattura_cdor'[Prezzo vendita])
+		lineageTag: 20c3251d-9027-4ed2-9f3d-ffb5cf8b0f12
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Costo medio produzione €' = AVERAGE('Ordini _no fattura_cdor'[Costo produzione])
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: eabde506-7cff-44d6-9aaf-27a30efe4210
+
+		annotation PBI_FormatHint = {"currencyCulture":"it-IT"}
+
+	measure 'Marginalità %' = DIVIDE([Prezzo vendita medio €]-[Costo medio produzione €],[Prezzo vendita medio €])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8e688a70-f3e6-4c10-9e19-aa3ddb07e1af
+
+	measure 'Ordinato iniziale €' = SUM('Ordini _no fattura_cdor'[Importo iniziale riga €])
+		formatString: "€"\ #,0;-"€"\ #,0;"€"\ #,0
+		lineageTag: aaf6998c-a77c-4e49-b3c9-34370403bd06
+
+	measure 'Omaggi da verificare' = SUM('Ordini _no fattura_cdor'[Valore sconto netto 1])
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: ed6591bf-fb20-452e-adaf-644d92fa43ab
+
+		annotation PBI_FormatHint = {"currencyCulture":"it-IT"}
+
+	measure 'n° omaggi' = SUM('Ordini _no fattura_cdor'[Quantità omaggio riga])
+		lineageTag: 5ae3be1e-5c05-4cfe-a495-305769c22fad
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column KEY
+		dataType: int64
+		formatString: 0
+		lineageTag: 910520be-14b3-4b0e-91e4-a5dec5fac444
+		summarizeBy: none
+		sourceColumn: KEY
+
+		annotation SummarizationSetBy = User
+
+	column 'Codice cliente'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6ec5eb25-6bcc-4adb-9804-78024624941d
+		summarizeBy: none
+		sourceColumn: Codice cliente
+
+		annotation SummarizationSetBy = User
+
+	column 'Anno ordine'
+		dataType: int64
+		formatString: 0
+		lineageTag: 72a93c25-1282-4895-b3d5-bae3fe5249c6
+		summarizeBy: none
+		sourceColumn: Anno ordine
+
+		annotation SummarizationSetBy = User
+
+	column 'Numero ordine'
+		dataType: int64
+		formatString: 0
+		lineageTag: c0f10265-89ad-426c-8279-c560ae097398
+		summarizeBy: none
+		sourceColumn: Numero ordine
+
+		annotation SummarizationSetBy = User
+
+	column 'Codice stato ordine'
+		dataType: string
+		isHidden
+		lineageTag: 6424bca2-a346-498d-9042-f5446139e5bc
+		summarizeBy: none
+		sourceColumn: Codice stato ordine
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data inserimento ordine'
+		dataType: dateTime
+		formatString: dd/mm/yy
+		lineageTag: 8f6bf7f5-941b-47e8-b86d-64d69133406c
+		summarizeBy: none
+		sourceColumn: Data inserimento ordine
+
+		variation Variazione
+			isDefault
+			relationship: 56addd6f-35ff-45bc-affd-48a60bca3ab4
+			defaultHierarchy: LocalDateTable_abdc1aef-97ce-49fd-8ab1-eaf8a5f62624.'Gerarchia data'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Data consegna ordine'
+		dataType: dateTime
+		formatString: dd/mm/yy
+		lineageTag: f6fe19ea-85e0-42cb-b21f-76978a41309b
+		summarizeBy: none
+		sourceColumn: Data consegna ordine
+
+		variation Variazione
+			isDefault
+			relationship: dc7db1b1-2671-40b8-81fd-f1beae2a8856
+			defaultHierarchy: LocalDateTable_cc31094f-88ff-4fab-9029-200ba511142f.'Gerarchia data'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Codice stato riga'
+		dataType: string
+		isHidden
+		lineageTag: e583de3b-870c-4da6-832a-c90cd79792f7
+		summarizeBy: none
+		sourceColumn: Codice stato riga
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codice articolo'
+		dataType: string
+		lineageTag: 5616171e-99d2-45a6-ac52-0834452a7d7c
+		summarizeBy: none
+		sourceColumn: Codice articolo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descrizione articolo'
+		dataType: string
+		lineageTag: c8efe327-a857-4b4d-870d-8a682704421a
+		summarizeBy: none
+		sourceColumn: Descrizione articolo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codice agente'
+		dataType: string
+		lineageTag: 4b4a0d0c-2a29-4091-8756-6af9f5332a24
+		summarizeBy: none
+		sourceColumn: Codice agente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quantità ordine riga'
+		dataType: double
+		lineageTag: e0fd00cd-315b-4a3b-9889-5ed10dcd34b8
+		summarizeBy: none
+		sourceColumn: Quantità ordine riga
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Quantità omaggio riga'
+		dataType: double
+		lineageTag: 1a4a3e0d-3061-4a52-87cb-e638b0ded30c
+		summarizeBy: none
+		sourceColumn: Quantità omaggio riga
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Prezzo vendita'
+		dataType: double
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: 0f686e53-14e8-4fd0-b60b-b0dab6c847e2
+		summarizeBy: none
+		sourceColumn: Prezzo vendita
+
+		annotation SummarizationSetBy = User
+
+	column 'Valore sconto netto 1'
+		dataType: double
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: 402130fc-087b-4939-b8e7-68ed53b6a044
+		summarizeBy: none
+		sourceColumn: Valore sconto netto 1
+
+		annotation SummarizationSetBy = User
+
+	column 'Importo netto sconti'
+		dataType: double
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: 06fc73d4-4509-4ed1-b9d6-3d54559b709a
+		summarizeBy: none
+		sourceColumn: Importo netto sconti
+
+		annotation SummarizationSetBy = User
+
+	column 'Importo netto riga'
+		dataType: double
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: ee0bdee8-c150-4088-97ce-9fa528ff1073
+		summarizeBy: none
+		sourceColumn: Importo netto riga
+
+		annotation SummarizationSetBy = User
+
+	column 'Mese ordine'
+		dataType: int64
+		formatString: 0
+		lineageTag: c214222b-fa7a-4074-b1fc-7f66d767fdbe
+		summarizeBy: none
+		sourceColumn: Mese ordine
+
+		annotation SummarizationSetBy = User
+
+	column 'Linea prodotto'
+		dataType: string
+		lineageTag: dc55f9a2-1cdb-4ba9-9863-e39b829ea65c
+		summarizeBy: none
+		sourceColumn: Linea prodotto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Zona
+		dataType: string
+		lineageTag: 07d41e63-5925-47c0-ac45-46c5de5ff42f
+		summarizeBy: none
+		sourceColumn: Zona
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Metodo pagamento'
+		dataType: string
+		lineageTag: 89dca3b3-6f0e-4023-85e7-f82e8979dff1
+		summarizeBy: none
+		sourceColumn: Metodo pagamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column Stato
+		dataType: string
+		lineageTag: 4408186b-d91b-4305-bd77-c0c6935516de
+		summarizeBy: none
+		sourceColumn: Stato
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descrizione raggruppamento'
+		dataType: string
+		lineageTag: 288825d1-8f6f-445b-a7ba-80e8367331c1
+		summarizeBy: none
+		sourceColumn: Descrizione raggruppamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Classe inventariale'
+		dataType: string
+		lineageTag: 8e748239-287a-4cff-8980-f9e7e2ecb771
+		summarizeBy: none
+		sourceColumn: Classe inventariale
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Importo vendita riga €' = 'Ordini _no fattura_cdor'[Prezzo vendita]*'Ordini _no fattura_cdor'[Quantità ordine riga]
+		lineageTag: 373e7b82-8232-4f71-8417-16cfc0ce550e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Sconto totale riga %' = ```
+			DIVIDE(('Ordini _no fattura_cdor'[Importo vendita riga €]-'Ordini _no fattura_cdor'[Importo netto riga]),'Ordini _no fattura_cdor'[Importo vendita riga €]) 
+			```
+		formatString: 0%;-0%;0%
+		lineageTag: 2159647c-6680-4377-a5c6-fffb39eb0c47
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column Regione_inter
+		dataType: string
+		lineageTag: 761e2aba-430e-4202-b8b9-a9d59831a9d6
+		summarizeBy: none
+		sourceColumn: Regione_inter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regione
+		dataType: string
+		lineageTag: c2909ba4-e0ca-4f7d-a862-9158c07f9710
+		summarizeBy: none
+		sourceColumn: Regione
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Costo produzione' = RELATED('Anagrafica articoli_art'[Costo standard])
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 720f4ffd-79e1-439d-aa22-fda2932999f6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"it-IT"}
+
+	column cdor_tipo_riga
+		dataType: string
+		lineageTag: 7ac1c4dc-c7d4-4b0b-a24c-edecd16e8d84
+		summarizeBy: none
+		sourceColumn: cdor_tipo_riga
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnnoOrdine
+		dataType: string
+		lineageTag: cee55588-6950-4e66-a4ce-3c2a64bf3cb4
+		summarizeBy: none
+		sourceColumn: AnnoOrdine
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Importo iniziale riga €' = ('Ordini _no fattura_cdor'[Prezzo vendita]*'Ordini _no fattura_cdor'[Quantità ordine riga])
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: 2dd98530-efe6-4c92-ab71-9e13dfb32b54
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	partition 'Ordini _no fattura_cdor' = m
+		mode: import
+		source =
+				let
+				    Origine = Odbc.Query("dsn=F12 Informix DB", "SELECT * FROM cdor"),
+				    #"Rinominate colonne" = Table.RenameColumns(Origine,{{"cdor_serial", "KEY"}, {"cdor_cli", "Codice cliente"}, {"cdor_anno_ord", "Anno ordine"}, {"cdor_num_ord", "Numero ordine"}, {"cdor_stato_ord", "Stato ordine"}, {"cdor_data_ins", "Data inserimento ordine"}, {"cdor_data_cons", "Data consegna ordine"}, {"cdor_stato_riga", "Stato riga"}, {"cdor_sigla_art", "Codice articolo"}, {"cdor_descr_art", "Descrizione articolo"}, {"cdor_agente", "Codice agente"}, {"cdor_qta_ven", "Quantità ordine riga"}, {"cdor_qta_oma", "Quantità omaggio riga"}, {"cdor_prezzo", "Prezzo vendita"}, {"cdor_sc_1", "Valore sconto netto 1"}, {"cdor_netto", "Importo netto sconti"}, {"cdor_importo", "Importo netto riga"}, {"cdor_mese", "Mese ordine"}, {"cdor_des_mpa", "Metodo pagamento"}, {"cdor_des_paese", "Stato"}, {"cdor_descr_raggr", "Descrizione raggruppamento"}, {"cdor_descr_cl_in", "Classe inventariale"}, {"cdor_d_zona", "Zona"}, {"cdor_linea", "Linea prodotto"}}),
+				    #"Rimosse altre colonne" = Table.SelectColumns(#"Rinominate colonne",{"KEY", "Codice cliente", "Anno ordine", "Numero ordine", "Stato ordine", "Data inserimento ordine", "Data consegna ordine", "cdor_tipo_riga", "Stato riga", "Codice articolo", "Descrizione articolo", "Codice agente", "Quantità ordine riga", "Quantità omaggio riga", "Prezzo vendita", "Valore sconto netto 1", "Importo netto sconti", "Importo netto riga", "Mese ordine", "Linea prodotto", "Zona", "Metodo pagamento", "Stato", "Descrizione raggruppamento", "Classe inventariale"}),
+				    #"Rinominate colonne1" = Table.RenameColumns(#"Rimosse altre colonne",{{"Stato ordine", "Codice stato ordine"}, {"Stato riga", "Codice stato riga"}}),
+				    #"Colonna condizionale aggiunta" = Table.AddColumn(#"Rinominate colonne1", "Personalizzato", each if [Stato] <> "ITALIA                             " then "ESTERO" else [Zona]),
+				    #"Rinominate colonne2" = Table.RenameColumns(#"Colonna condizionale aggiunta",{{"Personalizzato", "Regione_inter"}}),
+				    #"Testo inserito prima del delimitatore" = Table.AddColumn(#"Rinominate colonne2", "Testo prima del delimitatore", each Text.BeforeDelimiter([Regione_inter], " "), type text),
+				    #"Rinominate colonne3" = Table.RenameColumns(#"Testo inserito prima del delimitatore",{{"Testo prima del delimitatore", "Regione"}}),
+				    #"Inserita colonna combinata" = Table.AddColumn(#"Rinominate colonne3", "AnnoOrdine", each Text.Combine({Text.From([Anno ordine], "it-IT"), Text.From([Numero ordine], "it-IT")}, "-"), type text)
+				in
+				    #"Inserita colonna combinata"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigazione
+

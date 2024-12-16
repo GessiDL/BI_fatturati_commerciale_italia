@@ -1,0 +1,32 @@
+table Descrizione_gruppo_merceologico_gum
+	lineageTag: ae3db0ea-72ca-48d4-a058-207ffc31ab70
+
+	column 'Codice Gruppo Merceologico'
+		dataType: string
+		lineageTag: 8e20c527-c819-4984-b580-e001457b9583
+		summarizeBy: none
+		sourceColumn: Codice Gruppo Merceologico
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descrizione Gruppo Merceologico'
+		dataType: string
+		lineageTag: 62045cbd-d609-485e-b020-0632cb4416ce
+		summarizeBy: none
+		sourceColumn: Descrizione Gruppo Merceologico
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Descrizione_gruppo_merceologico_gum = m
+		mode: import
+		source =
+				let
+				    Origine = Odbc.Query("dsn=F12 Informix DB", "SELECT * FROM gum"),
+				    #"Rinominate colonne" = Table.RenameColumns(Origine,{{"gu_codice", "Codice Gruppo Merceologico"}, {"gu_descri", "Descrizione Gruppo Merceologico"}})
+				in
+				    #"Rinominate colonne"
+
+	annotation PBI_NavigationStepName = Navigazione
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,201 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 413.702479338843,
+        "y": 84.272727272727266
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "CLASSE INVENTARIALE",
+          "nodeLineageTag": "23e5b2fe-6790-4db9-a6c3-a5fdd3bbf08e",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 971,
+            "y": 417.5
+          },
+          "nodeIndex": "Agenti",
+          "nodeLineageTag": "4f5dcffc-22aa-4292-bf23-5555c3d9048b",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 435,
+            "y": 0
+          },
+          "nodeIndex": "Stato ordine",
+          "nodeLineageTag": "acb043af-ecac-4f86-8cc1-27b12b196cfd",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 963,
+            "y": 0
+          },
+          "nodeIndex": "Stato riga",
+          "nodeLineageTag": "695bc2d9-7c16-421a-add0-0d35a84b4243",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 251,
+            "y": 347
+          },
+          "nodeIndex": "Anagrafica articoli_art",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 655,
+            "y": 140
+          },
+          "nodeIndex": "Ordini _no fattura_cdor",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 667,
+            "y": 557.5
+          },
+          "nodeIndex": "Vendite_fatturate_cdco",
+          "nodeLineageTag": "83775e20-7cd3-437c-86a3-0ca72e1471d9",
+          "size": {
+            "height": 468,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 339,
+            "y": 767.75
+          },
+          "nodeIndex": "Bordi",
+          "nodeLineageTag": "6c7d2983-abca-43fc-9657-23faf638b603",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 980,
+            "y": 923.75
+          },
+          "nodeIndex": "Traduzione Colori",
+          "nodeLineageTag": "e7d8697e-9540-48a3-8e4c-2dfdbf88df31",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1651,
+            "y": 462.875
+          },
+          "nodeIndex": "Descrizione_gruppo_merceologico_gum",
+          "nodeLineageTag": "ae3db0ea-72ca-48d4-a058-207ffc31ab70",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1264,
+            "y": 461.875
+          },
+          "nodeIndex": "Anagrafica_Clienti_c_f",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 609.4948347107437
+          },
+          "nodeIndex": "Listini vendita",
+          "nodeLineageTag": "226bdb24-583c-46d6-9d58-b46e4f93832e",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1650.2603110951825,
+            "y": 194.50309917355372
+          },
+          "nodeIndex": "Filtro Gruppo merceologico",
+          "nodeLineageTag": "663dbbd6-444a-4fcd-98cd-8a4e05187325",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1935,
+            "y": 437.875
+          },
+          "nodeIndex": "Indice_versioni",
+          "nodeLineageTag": "3c18afd9-97ad-4428-96b6-49c20890f60b",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Tutte le tabelle",
+      "zoomValue": 78.317152103559877,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Tutte le tabelle",
+  "defaultDiagram": "Tutte le tabelle"
+}

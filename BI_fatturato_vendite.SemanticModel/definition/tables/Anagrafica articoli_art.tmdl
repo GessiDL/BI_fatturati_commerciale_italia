@@ -1,0 +1,182 @@
+table 'Anagrafica articoli_art'
+	lineageTag: e43d1bab-a1d2-437a-b596-91dfb9e83cd1
+
+	column 'Costo standard'
+		dataType: decimal
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 011d783d-738c-49f6-bf32-d04c7962a9a7
+		summarizeBy: none
+		sourceColumn: Costo standard
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"currencyCulture":"it-IT"}
+
+	column 'Codice articolo'
+		dataType: string
+		lineageTag: ea341e3a-7a6a-457a-97be-33e168f4ccaf
+		summarizeBy: none
+		sourceColumn: Codice articolo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descrizione articolo'
+		dataType: string
+		lineageTag: 05e8344a-5180-435b-b3e5-a07a96388a85
+		summarizeBy: none
+		sourceColumn: Descrizione articolo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Raggruppamento articolo'
+		dataType: string
+		lineageTag: f6d1ea95-4df9-436f-b0a4-9d028e5671e0
+		summarizeBy: none
+		sourceColumn: Raggruppamento articolo
+
+		annotation SummarizationSetBy = Automatic
+
+	column a_gr_merc
+		dataType: string
+		isHidden
+		lineageTag: 67b4990f-8c66-45c7-9078-d932a3c070bb
+		summarizeBy: none
+		sourceColumn: a_gr_merc
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codice classe inventariale'
+		dataType: string
+		isHidden
+		lineageTag: d0d34832-8600-4481-b359-4af999fb2c09
+		summarizeBy: none
+		sourceColumn: Codice classe inventariale
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column a_nome_comb
+		dataType: string
+		isHidden
+		lineageTag: 10b300fe-953d-4ae7-ab7e-9b099c28f70b
+		summarizeBy: none
+		sourceColumn: a_nome_comb
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column a_al_iva
+		dataType: string
+		isHidden
+		lineageTag: cf43aacf-e7e9-4609-b0ff-9e6848fdcd2f
+		summarizeBy: none
+		sourceColumn: a_al_iva
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column a_reparto
+		dataType: string
+		isHidden
+		lineageTag: 18670084-1412-46e0-90be-0152851d6bd6
+		summarizeBy: none
+		sourceColumn: a_reparto
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column a_stato_art
+		dataType: string
+		isHidden
+		lineageTag: 8798a8c0-dc34-44e7-8c4c-84669b4a5e15
+		summarizeBy: none
+		sourceColumn: a_stato_art
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column a_tipo_mat
+		dataType: string
+		isHidden
+		lineageTag: ee98bc29-57e8-4aff-a256-956cf2cf90c5
+		summarizeBy: none
+		sourceColumn: a_tipo_mat
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column a_qualifica
+		dataType: string
+		isHidden
+		lineageTag: 94ea9220-f3ca-4ac7-af00-8c6f704c0ac1
+		summarizeBy: none
+		sourceColumn: a_qualifica
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column a_classe_acq
+		dataType: string
+		isHidden
+		lineageTag: 74b11c1d-b627-4f7f-99d2-1ed4bbeae547
+		summarizeBy: none
+		sourceColumn: a_classe_acq
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column a_art_commerciale
+		dataType: string
+		isHidden
+		lineageTag: 100503b7-e7b4-4a71-b6dc-6f9b81658fe6
+		summarizeBy: none
+		sourceColumn: a_art_commerciale
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column a_tipologia_art
+		dataType: string
+		isHidden
+		lineageTag: 4f6fea50-9dd2-4b35-9939-bf498b225242
+		summarizeBy: none
+		sourceColumn: a_tipologia_art
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linea prodotto'
+		dataType: string
+		lineageTag: 0880e765-9c9f-4721-9b24-6b433e1f9dee
+		summarizeBy: none
+		sourceColumn: Linea prodotto
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Anagrafica articoli_art' = m
+		mode: import
+		source =
+				let
+				    Origine = Odbc.Query("dsn=F12 Informix DB", "SELECT * FROM art"),
+				    #"Modificato tipo" = Table.TransformColumnTypes(Origine,{{"a_prz_pag_stand", Currency.Type}, {"a_prz_stand_prv", Currency.Type}}),
+				    #"Rimosse altre colonne" = Table.SelectColumns(#"Modificato tipo",{"a_prz_pag_stand", "a_sigla_art", "a_descr_art", "a_raggr_art", "a_gr_merc", "a_cl_inv", "a_nome_comb", "a_al_iva", "a_reparto", "a_stato_art", "a_tipo_mat", "a_qualifica", "a_classe_acq", "a_art_commerciale", "a_tipologia_art", "a_linea"}),
+				    #"Rinominate colonne" = Table.RenameColumns(#"Rimosse altre colonne",{{"a_prz_pag_stand", "Costo standard"}, {"a_sigla_art", "Codice articolo"}, {"a_descr_art", "Descrizione articolo"}, {"a_raggr_art", "Raggruppamento articolo"}, {"a_cl_inv", "Codice classe inventariale"}, {"a_linea", "Linea prodotto"}})
+				in
+				    #"Rinominate colonne"
+
+	annotation PBI_NavigationStepName = Navigazione
+
+	annotation PBI_ResultType = Table
+

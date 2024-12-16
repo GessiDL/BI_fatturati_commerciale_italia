@@ -1,0 +1,5 @@
+role Sviluppatore
+	modelPermission: read
+
+	annotation PBI_Id = b72b2c8a10994ada9cf7cb126a27aea8
+

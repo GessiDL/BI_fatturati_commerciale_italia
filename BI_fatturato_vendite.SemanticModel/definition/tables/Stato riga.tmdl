@@ -1,0 +1,32 @@
+table 'Stato riga'
+	lineageTag: 695bc2d9-7c16-421a-add0-0d35a84b4243
+
+	column 'Codice stato riga'
+		dataType: string
+		lineageTag: bd446674-95c8-43f1-82f4-04afba784c43
+		summarizeBy: none
+		sourceColumn: Codice stato riga
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Stato riga'
+		dataType: string
+		lineageTag: 4d539baf-06de-408d-be2f-789eae201bc6
+		summarizeBy: none
+		sourceColumn: Stato riga
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Stato riga' = m
+		mode: import
+		source =
+				let
+				    Origine = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("PY1BCoUwDESvUrL2FIqCO1Fx8YuLECMUtBHrd+Hpja24nDdvGGuhgQyaXTYJh8CYWegVDLj8D7yceDY9k3eEsSu0K8TPvK/46p2iTsLGIeVac+1NeWJ45pGVyh6QjF8ydDK563MqpfkiRGIqNyWzVdbyKRTPxhs=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Codice stato riga" = _t, #"Stato riga" = _t]),
+				    #"Modificato tipo" = Table.TransformColumnTypes(Origine,{{"Codice stato riga", type text}, {"Stato riga", type text}})
+				in
+				    #"Modificato tipo"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigazione
+

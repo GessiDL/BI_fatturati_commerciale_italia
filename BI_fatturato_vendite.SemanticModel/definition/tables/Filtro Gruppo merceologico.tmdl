@@ -1,0 +1,39 @@
+table 'Filtro Gruppo merceologico'
+	lineageTag: 663dbbd6-444a-4fcd-98cd-8a4e05187325
+
+	column 'Codice Gruppo Merceologico'
+		dataType: string
+		lineageTag: 3a2eaeb5-dbe6-4f5f-8811-c03f51bbfacb
+		summarizeBy: none
+		sourceColumn: Codice Gruppo Merceologico
+
+		annotation SummarizationSetBy = Automatic
+
+	column filtro_personale_1
+		dataType: string
+		lineageTag: dc9b073f-0d08-4c35-ab6d-085b25e06f8f
+		summarizeBy: none
+		sourceColumn: filtro_personale_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column filtro_MA_1
+		dataType: string
+		lineageTag: 20073720-a9af-46d0-8e19-16fcc5cd26d1
+		summarizeBy: none
+		sourceColumn: filtro_MA_1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Filtro Gruppo merceologico' = m
+		mode: import
+		source =
+				let
+				    Origine = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("jZJBC8IgGIb/iuxah6nbaseIEZ0a3SI6rPYFH4w51CL69ZlEtTW1k+jzKL6v7vdRFqfRNCpaDaS7HI8NngQplAYpzPKi0WY8TJ9a8p/GzXzZIDzNUYGFBGrmW7xCW6MW0iHFYYnbK5dSnEEpFC0qXQ0EHhJYSKBWwGulkbSClOseZ7+tDTgPcBbgNMDjMX437ddAhOqgrsxTSLA2zfP37u9TaDz7pByQzElSJ0mchDsJcxLaI58/gZON1MIkxFc628U/5s7mLW5kZcppoF/GzkZ2wtQHEx/kPsh8kPrg3AdzN+SvBxz/+4cH", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Codice Gruppo Merceologico" = _t, filtro_personale_1 = _t, filtro_MA_1 = _t])
+				in
+				    Origine
+
+	annotation PBI_NavigationStepName = Navigazione
+
+	annotation PBI_ResultType = Table
+

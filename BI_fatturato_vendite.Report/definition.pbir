@@ -1,0 +1,9 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../BI_fatturato_vendite.SemanticModel"
+    },
+    "byConnection": null
+  }
+}

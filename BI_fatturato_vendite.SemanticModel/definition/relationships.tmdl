@@ -1,0 +1,102 @@
+relationship 47b6691a-ae08-a947-3276-d82ccf5a3e1d
+	fromColumn: 'Anagrafica articoli_art'.'Codice classe inventariale'
+	toColumn: 'CLASSE INVENTARIALE'.'Codice classe inventariale'
+
+relationship 8428535d-c69d-4891-a637-0696d6bcb179
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Vendite_fatturate_cdco.'Data DDT'
+	toColumn: LocalDateTable_b16c257d-bee0-4810-b941-9b7d81e1f859.Date
+
+relationship 2ebc2811-f279-4a69-ac93-2bf8c1ce5eb2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Vendite_fatturate_cdco.'Data fattura'
+	toColumn: LocalDateTable_06d97be1-bd22-4403-83e8-bc6e2f00dcb3.Date
+
+relationship 56addd6f-35ff-45bc-affd-48a60bca3ab4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Ordini _no fattura_cdor'.'Data inserimento ordine'
+	toColumn: LocalDateTable_abdc1aef-97ce-49fd-8ab1-eaf8a5f62624.Date
+
+relationship dc7db1b1-2671-40b8-81fd-f1beae2a8856
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Ordini _no fattura_cdor'.'Data consegna ordine'
+	toColumn: LocalDateTable_cc31094f-88ff-4fab-9029-200ba511142f.Date
+
+relationship fe69735f-f517-0a77-9a17-680346c9c942
+	fromColumn: 'Ordini _no fattura_cdor'.'Codice agente'
+	toColumn: Agenti.'Codice agente'
+
+relationship f584ceeb-829a-2e3a-a1c0-3db7bdc93258
+	fromColumn: Vendite_fatturate_cdco.'Codice agente'
+	toColumn: Agenti.'Codice agente'
+
+relationship d56397bb-bc9a-5dda-e6bf-d4db00a26e82
+	fromColumn: 'Ordini _no fattura_cdor'.'Codice articolo'
+	toColumn: 'Anagrafica articoli_art'.'Codice articolo'
+
+relationship 6b25999b-f9a1-8281-09fb-c4063503f8ea
+	fromColumn: Vendite_fatturate_cdco.'Codice articolo'
+	toColumn: 'Anagrafica articoli_art'.'Codice articolo'
+
+relationship AutoDetected_6d69f8c9-23e7-45c0-8d27-c6141e0cf0e1
+	fromColumn: 'Ordini _no fattura_cdor'.'Codice stato ordine'
+	toColumn: 'Stato ordine'.'Codice stato ordine'
+
+relationship 96552465-90aa-6961-9c0a-eb0f588e4170
+	fromColumn: 'Ordini _no fattura_cdor'.'Codice stato riga'
+	toColumn: 'Stato riga'.'Codice stato riga'
+
+relationship 87c8c496-a84f-2b46-8e0b-674e2b53e2a0
+	crossFilteringBehavior: bothDirections
+	fromColumn: Vendite_fatturate_cdco.Bordi
+	toColumn: Bordi.'Codice Bordo'
+
+relationship 3dfa65ca-1c45-fb09-575e-17e5992f698a
+	fromColumn: Vendite_fatturate_cdco.Colore
+	toColumn: 'Traduzione Colori'.'Codice Colore'
+
+relationship AutoDetected_fb04696b-e1a2-4ace-8f5c-4bb12efb6136
+	fromColumn: Vendite_fatturate_cdco.'Codice Cliente'
+	toColumn: Anagrafica_Clienti_c_f.'Codice Cliente'
+
+relationship f9bc97b1-af9f-99e7-006d-f6ba81deb295
+	fromColumn: Anagrafica_Clienti_c_f.'Codice Gruppo Merceologico'
+	toColumn: Descrizione_gruppo_merceologico_gum.'Codice Gruppo Merceologico'
+
+relationship c9774fc2-0d36-41e8-8068-942cd06bdbe4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Listini vendita'.'Data Entrata Vigore'
+	toColumn: LocalDateTable_032380aa-131a-4ec9-9ef7-9189dfabe513.Date
+
+relationship 69f87d5b-1687-4caa-8af1-a3e1b6d4e6cd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Listini vendita'.'Data Fine Vigore'
+	toColumn: LocalDateTable_322e1bec-4819-4152-a41b-9fc956cf7bc6.Date
+
+relationship 9e319327-9122-455f-81cb-f5a37ba4b091
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Listini vendita'.'Data Variazione'
+	toColumn: LocalDateTable_55936673-45a4-4995-b827-479d2825b3ee.Date
+
+relationship 7b83c82c-541f-ba2f-f6b7-f416f8cd8202
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: 'Listini vendita'.'Codice Articolo'
+	toColumn: Vendite_fatturate_cdco.'Codice articolo'
+
+relationship AutoDetected_44e765f6-f784-40be-b2fb-bdfad9dda14d
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Filtro Gruppo merceologico'.'Codice Gruppo Merceologico'
+	toColumn: Descrizione_gruppo_merceologico_gum.'Codice Gruppo Merceologico'
+
+relationship 7de1d6b9-df60-4de5-b506-47db557cd21b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Indice_versioni.'Data inizio modifiche'
+	toColumn: LocalDateTable_c643568e-70d2-4bfc-be3b-9608860d2182.Date
+
+relationship a588d4b3-98eb-4849-88b9-3e9ddb58404c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Indice_versioni.'Data rilascio'
+	toColumn: LocalDateTable_62fade2e-0e42-462f-9300-0255907ec790.Date
+

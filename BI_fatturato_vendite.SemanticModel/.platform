@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "BI_fatturato_vendite"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "fa8dee30-f70f-4088-9f00-afe45b803f68"
+  }
+}

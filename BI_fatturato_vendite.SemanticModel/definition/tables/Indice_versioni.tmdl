@@ -1,0 +1,101 @@
+table Indice_versioni
+	isHidden
+	lineageTag: 3c18afd9-97ad-4428-96b6-49c20890f60b
+
+	measure 'Versione corrente' = ```
+			
+			VAR UltimaModifica = MAX(Indice_versioni[Data inizio modifiche])
+			VAR UltimoRilascio = MAX(Indice_versioni[Data rilascio])
+			VAR VersioneModifica = MAXX(
+			    FILTER(Indice_versioni, Indice_versioni[Data inizio modifiche] = UltimaModifica), 
+			    Indice_versioni[n° versione]
+			)
+			VAR VersioneRilascio = MAXX(
+			    FILTER(Indice_versioni, Indice_versioni[Data rilascio] = UltimoRilascio), 
+			    Indice_versioni[n° versione]
+			)
+			RETURN
+			IF(
+			    (UltimaModifica > UltimoRilascio || ISBLANK(UltimoRilascio)),
+			    VersioneModifica & ".dev",
+			    VersioneRilascio
+			)
+			```
+		lineageTag: 3bf5f171-54fa-4b39-a305-5f13373f2e8f
+
+	column 'n° versione'
+		dataType: string
+		isHidden
+		lineageTag: c7648531-9b43-4405-b43a-43e266413296
+		summarizeBy: none
+		sourceColumn: n° versione
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modifiche
+		dataType: string
+		isHidden
+		lineageTag: 5a13db21-aaf7-4f20-b43e-028dfb015d7b
+		summarizeBy: none
+		sourceColumn: Modifiche
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data inizio modifiche'
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 00377e7f-c5ca-47e9-92dc-d4c184423d4e
+		summarizeBy: none
+		sourceColumn: Data inizio modifiche
+
+		variation Variazione
+			isDefault
+			relationship: 7de1d6b9-df60-4de5-b506-47db557cd21b
+			defaultHierarchy: LocalDateTable_c643568e-70d2-4bfc-be3b-9608860d2182.'Gerarchia data'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Data rilascio'
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 8cbecdae-6966-4e15-8607-bf9308b89f36
+		summarizeBy: none
+		sourceColumn: Data rilascio
+
+		variation Variazione
+			isDefault
+			relationship: a588d4b3-98eb-4849-88b9-3e9ddb58404c
+			defaultHierarchy: LocalDateTable_62fade2e-0e42-462f-9300-0255907ec790.'Gerarchia data'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Indice_versioni = m
+		mode: import
+		source =
+				let
+				    Origine = Excel.Workbook(File.Contents("C:\Users\gessica.dilenardo\Documents\Power BI\Elaborati\BI_fatturato_vendite\Versionamento\Indice versioni.xlsx"), null, true),
+				    Indice_versioni_Table = Origine{[Item="Indice_versioni",Kind="Table"]}[Data],
+				    #"Modificato tipo" = Table.TransformColumnTypes(Indice_versioni_Table,{{"n° versione", type text}, {"Modifiche", type text}, {"Data inizio modifiche", type date}, {"Data rilascio", type date}})
+				in
+				    #"Modificato tipo"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigazione
+
+	annotation PBI_ResultType = Table
+
