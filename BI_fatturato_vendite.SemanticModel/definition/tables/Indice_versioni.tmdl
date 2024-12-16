@@ -87,7 +87,7 @@ table Indice_versioni
 		mode: import
 		source =
 				let
-				    Origine = Excel.Workbook(File.Contents("C:\Users\gessica.dilenardo\Documents\Power BI\Elaborati\BI_fatturato_vendite\Versionamento\Indice versioni.xlsx"), null, true),
+				    Origine = Excel.Workbook(File.Contents("C:\Users\gessica.dilenardo\Documents\Power BI\Elaborati\BI_Commerciali\BI_fatturati_commerciale_italia\Indice versioni.xlsx"), null, true),
 				    Indice_versioni_Table = Origine{[Item="Indice_versioni",Kind="Table"]}[Data],
 				    #"Modificato tipo" = Table.TransformColumnTypes(Indice_versioni_Table,{{"n° versione", type text}, {"Modifiche", type text}, {"Data inizio modifiche", type date}, {"Data rilascio", type date}})
 				in
