@@ -95,6 +95,14 @@ table 'Listini vendita'
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	column lia_tipo_prezzo
+		dataType: string
+		lineageTag: ec11ad77-988a-43b6-8cce-64d14d6c8c88
+		summarizeBy: none
+		sourceColumn: lia_tipo_prezzo
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Listini vendita' = m
 		mode: import
 		source =

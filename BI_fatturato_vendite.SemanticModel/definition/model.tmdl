@@ -10,7 +10,7 @@ annotation PBI_QueryOrder = ["Anagrafica articoli_art","CLASSE INVENTARIALE","Ve
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBIDesktopVersion = 2.139.1733.0 (24.12)+af51d793b3eacaf90fc70909aa713164bbd22a66
+annotation PBIDesktopVersion = 2.141.1558.0 (25.03)+75b5f06a991f8f8a8a4d6b6fcd0f66e1ec2d6fdc
 
 annotation PBI_ProTooling = ["DevMode"]
 
